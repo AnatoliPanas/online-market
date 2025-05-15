@@ -1,6 +1,7 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from store.models import Order, OrderItem
+from store.permissions.customer_permissions import IsCustomerOrReadOnly
 from store.serializers.order import OrderSerializer, OrderCreateUpdateSerializer
 from store.serializers.order_item import OrderItemSerializer, OrderItemCreateUpdateSerializer
 
@@ -16,6 +17,7 @@ class OrderListCreateView(ListCreateAPIView):
 
 class OrderDetailUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
+    permission_classes = [IsCustomerOrReadOnly]
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
