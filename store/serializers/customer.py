@@ -10,7 +10,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = '__all__'
+        # fields = '__all__'
         read_only_fields = ['date_joined', 'deleted', 'deleted_at']
         exclude = ['email', 'phone_number']
 
@@ -25,3 +25,4 @@ class CustomerCreateUpdateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'Номер телефона должен содержать от 10 до 15 цифр.'
             )
+        return value
